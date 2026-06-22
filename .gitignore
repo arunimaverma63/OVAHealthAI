@@ -1,0 +1,48 @@
+# Python Virtual Environments
+venv/
+.venv/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# VS Code
+.vscode/
+
+# Environment Variables
+.env
+
+# Logs
+*.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Build files
+build/
+dist/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Java
+target/
+*.class
+
+# Node
+node_modules/
+
+# Models & Pickles (Large binary files)
+*.keras
+*.h5
+*.pkl
+*.pt
+*.pth
+*.bin
+
+# AI Datasets & Uploads (Huge numbers of images/large datasets)
+**/PCOS_organized/
+**/dataset/PCOS/
+**/uploads/
