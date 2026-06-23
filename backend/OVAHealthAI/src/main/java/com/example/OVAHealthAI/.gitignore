@@ -4,3 +4,4 @@ target/
 out/
 logs/
 .env
+node_modules/
