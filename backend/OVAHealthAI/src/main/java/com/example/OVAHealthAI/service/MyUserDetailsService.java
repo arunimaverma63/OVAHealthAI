@@ -25,7 +25,6 @@ public class MyUserDetailsService implements org.springframework.security.core.u
                 .builder()
                 .username(user.getUsername())
                 .password(user.getPassword())
-                .roles(user.getRole())
                 .build();
 
     }
