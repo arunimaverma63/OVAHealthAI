@@ -1,5 +1,6 @@
 package com.example.OVAHealthAI.config;
 
+import com.example.OVAHealthAI.service.CustomOAuth2UserService;
 import io.jsonwebtoken.Jwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +23,9 @@ public class SecurityConfig {
     private JwtFilter jwtFilter;
 
     //OAuth2 configuration (Google)
-
+    @Autowired private CustomOAuth2UserService customOAuth2UserService;
+    @Autowired private OAuth2SuccessHandler oAuth2SuccessHandler;
+    @Autowired private OAuth2FailureHandler oAuth2FailureHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -40,18 +43,21 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         return http
                 .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/login","/auth/register")
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/login","/auth/register","/oauth2/**","/login/oauth2/**")
                         .permitAll()
                         .anyRequest()
                         .authenticated()
                 )
 
                 .sessionManagement(session ->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .oauth2Login(oauth2 -> oauth2
+                        .userInfoEndpoint(u -> u.userService(customOAuth2UserService))
+                        .successHandler(oAuth2SuccessHandler)
+                        .failureHandler(oAuth2FailureHandler)
+                )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
 
     }
-
-
 
 }
