@@ -14,7 +14,7 @@ import java.io.IOException;
 @Component
 public class OAuth2FailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
-    @Value("${OAUTH2_REDIRECT_URI}")
+    @Value("${OAUTH2_REDIRECT_URI:http://localhost:8080/login/oauth2/code/google}")
     private String redirectUri;
 
     @Override

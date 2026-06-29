@@ -46,7 +46,7 @@ application-secret.properties
 application-prod.properties
 
 # Environment files
-.env
+OVAHealthAI/.env
 .env.*
 
 # =========================
@@ -77,5 +77,5 @@ uploads/
 
 node_modules/
 target/
-.env/
+OVAHealthAI/.env/
 dist/
