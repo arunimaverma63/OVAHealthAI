@@ -14,14 +14,18 @@ export default function AnalyticsDashboard() {
         let backendScans = response.data;
         
         // Map backend format to UI format
-        backendScans = backendScans.map(s => ({
-          id: s.id ? `PCOS-${s.id}` : `PCOS-${Math.floor(1000 + Math.random() * 9000)}`,
-          timestamp: s.timestamp || new Date().toISOString(),
-          prediction: s.prediction || "PCOS Detected",
-          confidence: s.confidence || 94,
-          report: s.report || "",
-          previewImage: s.imagePath ? `${API_URL}/uploads/${s.imagePath.split(/[\\/]/).pop()}` : null
-        }));
+        backendScans = backendScans.map(s => {
+          const status = s.status || "COMPLETED";
+          return {
+            id: s.id ? `PCOS-${s.id}` : `PCOS-${Math.floor(1000 + Math.random() * 9000)}`,
+            timestamp: s.timestamp || new Date().toISOString(),
+            prediction: s.prediction || (status === "PROCESSING" ? "Processing..." : status === "FAILED" ? "Failed" : "PCOS Detected"),
+            confidence: s.confidence !== null && s.confidence !== undefined ? s.confidence : (status === "COMPLETED" ? 94 : 0),
+            report: s.report || "",
+            status: status,
+            previewImage: s.imagePath ? `${API_URL}/uploads/${s.imagePath.split(/[\\/]/).pop()}` : null
+          };
+        });
 
         if (backendScans && backendScans.length > 0) {
           // Sort chronologically (latest first)
@@ -106,15 +110,16 @@ export default function AnalyticsDashboard() {
   };
 
   // Math Calculations
-  const totalScans = scans.length;
+  const completedScans = scans.filter(s => s.status !== "PROCESSING" && s.status !== "FAILED");
+  const totalScans = completedScans.length;
   
-  const positiveCount = scans.filter(s => 
+  const positiveCount = completedScans.filter(s => 
     s.prediction.toLowerCase().includes("positive") || 
     s.prediction.toLowerCase().includes("detected")
   ).length;
 
   const avgConfidence = totalScans > 0 
-    ? (scans.reduce((sum, s) => sum + s.confidence, 0) / totalScans).toFixed(1) 
+    ? (completedScans.reduce((sum, s) => sum + s.confidence, 0) / totalScans).toFixed(1) 
     : "0.0";
 
   const positivePct = totalScans > 0 
@@ -141,7 +146,7 @@ export default function AnalyticsDashboard() {
     }
     
     const realScansCounts = [0, 0, 0, 0, 0, 0];
-    scans.forEach(s => {
+    completedScans.forEach(s => {
       try {
         const scanMonth = new Date(s.timestamp).getMonth();
         const idx = last6MonthsIndices.indexOf(scanMonth);
@@ -392,33 +397,48 @@ export default function AnalyticsDashboard() {
                   </thead>
                   <tbody className="divide-y divide-outline-variant/20">
                     {scans.slice(0, 5).map((scan) => {
-                      const isPositive = scan.prediction.toLowerCase().includes("positive") || scan.prediction.toLowerCase().includes("detected");
+                      const isProcessing = scan.status === "PROCESSING";
+                      const isFailed = scan.status === "FAILED";
+                      const isCompleted = scan.status === "COMPLETED" || (!isProcessing && !isFailed);
+                      const isPositive = isCompleted && (scan.prediction.toLowerCase().includes("positive") || scan.prediction.toLowerCase().includes("detected"));
                       return (
                         <tr key={scan.id} className="hover:bg-primary/5 transition-colors">
                           <td className="px-8 py-6 font-medium text-primary">{scan.id}</td>
                           <td className="px-8 py-6 text-on-surface-variant">{formatTime(scan.timestamp)}</td>
                           <td className="px-8 py-6">
                             <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                              isPositive 
+                              isProcessing
+                                ? "bg-yellow-100 text-yellow-800 animate-pulse"
+                                : isFailed
+                                ? "bg-red-100 text-red-700"
+                                : isPositive 
                                 ? "bg-secondary-fixed text-on-secondary-fixed-variant" 
                                 : "bg-green-100 text-green-700"
                             }`}>
-                              {isPositive ? "PCOS Positive" : "Negative"}
+                              {isProcessing ? "Processing..." : isFailed ? "Failed" : isPositive ? "PCOS Positive" : "Negative"}
                             </span>
                           </td>
                           <td className="px-8 py-6">
-                            <div className="flex items-center gap-2">
-                              <div className="w-16 h-1.5 bg-surface-container rounded-full overflow-hidden">
-                                <div className="bg-primary h-full transition-all duration-500" style={{ width: `${scan.confidence}%` }}></div>
+                            {isProcessing ? (
+                              <span className="text-on-surface-variant italic text-xs">Analyzing...</span>
+                            ) : isFailed ? (
+                              <span className="text-red-500 font-bold text-xs">N/A</span>
+                            ) : (
+                              <div className="flex items-center gap-2">
+                                <div className="w-16 h-1.5 bg-surface-container rounded-full overflow-hidden">
+                                  <div className="bg-primary h-full transition-all duration-500" style={{ width: `${scan.confidence}%` }}></div>
+                                </div>
+                                <span className="font-label-sm text-label-sm">{scan.confidence.toFixed(1)}%</span>
                               </div>
-                              <span className="font-label-sm text-label-sm">{scan.confidence.toFixed(1)}%</span>
-                            </div>
+                            )}
                           </td>
                           <td className="px-8 py-6">
                             <Link 
                               to="/analysis-result" 
                               state={{ result: { prediction: scan.prediction, confidence: scan.confidence, explanation: scan.report }, previewImage: scan.previewImage }}
-                              className="p-2 text-on-surface-variant hover:text-primary transition-colors inline-block"
+                              className={`p-2 text-on-surface-variant hover:text-primary transition-colors inline-block ${
+                                (isProcessing || isFailed) ? "pointer-events-none opacity-50" : ""
+                              }`}
                             >
                               <span className="material-symbols-outlined">visibility</span>
                             </Link>

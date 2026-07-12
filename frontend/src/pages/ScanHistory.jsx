@@ -21,14 +21,18 @@ export default function ScanHistory() {
         const response = await axios.get(`${API_URL}/api/scans`);
         let backendScans = response.data;
         
-        backendScans = backendScans.map(s => ({
-          id: s.id ? `PCOS-${s.id}` : `PCOS-${Math.floor(1000 + Math.random() * 9000)}`,
-          timestamp: s.timestamp || new Date().toISOString(),
-          prediction: s.prediction || "PCOS Detected",
-          confidence: s.confidence || 94,
-          report: s.report || "",
-          previewImage: s.imagePath ? `${API_URL}/uploads/${s.imagePath.split(/[\\/]/).pop()}` : null
-        }));
+        backendScans = backendScans.map(s => {
+          const status = s.status || "COMPLETED";
+          return {
+            id: s.id ? `PCOS-${s.id}` : `PCOS-${Math.floor(1000 + Math.random() * 9000)}`,
+            timestamp: s.timestamp || new Date().toISOString(),
+            prediction: s.prediction || (status === "PROCESSING" ? "Processing..." : status === "FAILED" ? "Failed" : "PCOS Detected"),
+            confidence: s.confidence !== null && s.confidence !== undefined ? s.confidence : (status === "COMPLETED" ? 94 : 0),
+            report: s.report || "",
+            status: status,
+            previewImage: s.imagePath ? `${API_URL}/uploads/${s.imagePath.split(/[\\/]/).pop()}` : null
+          };
+        });
 
         if (backendScans && backendScans.length > 0) {
           backendScans.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
@@ -110,7 +114,9 @@ export default function ScanHistory() {
 
   // Filter Logic
   const filteredScans = scans.filter(scan => {
-    const isPositive = scan.prediction.toLowerCase().includes("positive") || scan.prediction.toLowerCase().includes("detected");
+    const isProcessing = scan.status === "PROCESSING";
+    const isFailed = scan.status === "FAILED";
+    const isPositive = !isProcessing && !isFailed && (scan.prediction.toLowerCase().includes("positive") || scan.prediction.toLowerCase().includes("detected"));
     
     // Search query matches ID or explanation
     const matchesSearch = searchQuery === "" || 
@@ -123,17 +129,17 @@ export default function ScanHistory() {
     if (selectedResult === "Positive") {
       matchesResult = isPositive;
     } else if (selectedResult === "Negative") {
-      matchesResult = !isPositive;
+      matchesResult = !isProcessing && !isFailed && !isPositive;
     }
 
     // Confidence level matches selection
     let matchesConfidence = true;
     if (minConfidence === "90% +") {
-      matchesConfidence = scan.confidence >= 90;
+      matchesConfidence = !isProcessing && !isFailed && scan.confidence >= 90;
     } else if (minConfidence === "80% +") {
-      matchesConfidence = scan.confidence >= 80;
+      matchesConfidence = !isProcessing && !isFailed && scan.confidence >= 80;
     } else if (minConfidence === "70% +") {
-      matchesConfidence = scan.confidence >= 70;
+      matchesConfidence = !isProcessing && !isFailed && scan.confidence >= 70;
     }
 
     return matchesSearch && matchesResult && matchesConfidence;
@@ -246,7 +252,10 @@ export default function ScanHistory() {
               </div>
             ) : (
               filteredScans.map((scan) => {
-                const isPositive = scan.prediction.toLowerCase().includes("positive") || scan.prediction.toLowerCase().includes("detected");
+                const isProcessing = scan.status === "PROCESSING";
+                const isFailed = scan.status === "FAILED";
+                const isCompleted = scan.status === "COMPLETED" || (!isProcessing && !isFailed);
+                const isPositive = isCompleted && (scan.prediction.toLowerCase().includes("positive") || scan.prediction.toLowerCase().includes("detected"));
                 const isExpanded = expandedScanId === scan.id;
                 
                 return (
@@ -259,9 +268,17 @@ export default function ScanHistory() {
                     <div className="p-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
                       <div className="flex items-center gap-4">
                         <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
-                          isPositive ? 'bg-secondary/10 text-secondary' : 'bg-primary/10 text-primary'
+                          isProcessing 
+                            ? 'bg-yellow-100 text-yellow-800' 
+                            : isFailed 
+                            ? 'bg-red-100 text-red-700'
+                            : isPositive 
+                            ? 'bg-secondary/10 text-secondary' 
+                            : 'bg-primary/10 text-primary'
                         }`}>
-                          <span className="material-symbols-outlined text-[28px]">radiology</span>
+                          <span className="material-symbols-outlined text-[28px]">
+                            {isProcessing ? 'sync' : isFailed ? 'error' : 'radiology'}
+                          </span>
                         </div>
                         <div>
                           <h3 className="font-headline-sm text-headline-sm text-on-surface">{formatTime(scan.timestamp)}</h3>
@@ -273,24 +290,34 @@ export default function ScanHistory() {
                         <div className="flex flex-col">
                           <span className="text-label-sm font-label-sm text-outline mb-1">Result</span>
                           <span className={`px-3 py-1 rounded-full font-label-sm text-label-sm w-fit ${
-                            isPositive 
+                            isProcessing
+                              ? "bg-yellow-100 text-yellow-800 font-bold animate-pulse"
+                              : isFailed
+                              ? "bg-red-100 text-red-700 font-bold"
+                              : isPositive 
                               ? "bg-secondary-fixed text-on-secondary-fixed-variant font-bold" 
                               : "bg-green-100 text-green-700 font-bold"
                           }`}>
-                            {isPositive ? "PCOS Positive" : "Negative"}
+                            {isProcessing ? "Processing..." : isFailed ? "Analysis Failed" : isPositive ? "PCOS Positive" : "Negative"}
                           </span>
                         </div>
                         <div className="flex flex-col">
                           <span className="text-label-sm font-label-sm text-outline mb-1">Confidence</span>
-                          <div className="flex items-center gap-2">
-                            <span className={`font-bold ${isPositive ? 'text-secondary' : 'text-primary'}`}>{scan.confidence.toFixed(1)}%</span>
-                            <div className="w-16 h-2 bg-surface-variant rounded-full overflow-hidden hidden sm:block">
-                              <div 
-                                className={`h-full ${isPositive ? 'bg-secondary' : 'bg-primary'}`} 
-                                style={{width: `${scan.confidence}%`}}
-                              ></div>
+                          {isProcessing ? (
+                            <span className="text-on-surface-variant italic text-sm">Analyzing...</span>
+                          ) : isFailed ? (
+                            <span className="text-red-500 font-bold">N/A</span>
+                          ) : (
+                            <div className="flex items-center gap-2">
+                              <span className={`font-bold ${isPositive ? 'text-secondary' : 'text-primary'}`}>{scan.confidence.toFixed(1)}%</span>
+                              <div className="w-16 h-2 bg-surface-variant rounded-full overflow-hidden hidden sm:block">
+                                <div 
+                                  className={`h-full ${isPositive ? 'bg-secondary' : 'bg-primary'}`} 
+                                  style={{width: `${scan.confidence}%`}}
+                                ></div>
+                              </div>
                             </div>
-                          </div>
+                          )}
                         </div>
                       </div>
 
@@ -307,7 +334,9 @@ export default function ScanHistory() {
                         <Link 
                           to="/analysis-result" 
                           state={{ result: { prediction: scan.prediction, confidence: scan.confidence, explanation: scan.report }, previewImage: scan.previewImage }}
-                          className="flex-1 md:flex-none bg-primary-container text-on-primary-container px-5 py-2.5 rounded-xl font-label-md text-label-md transition-all flex items-center justify-center gap-2"
+                          className={`flex-1 md:flex-none bg-primary-container text-on-primary-container px-5 py-2.5 rounded-xl font-label-md text-label-md transition-all flex items-center justify-center gap-2 ${
+                            (isProcessing || isFailed) ? "pointer-events-none opacity-50" : ""
+                          }`}
                         >
                           <span className="material-symbols-outlined text-[18px]">download</span>
                           Report

@@ -70,62 +70,50 @@ public class ScanService {
         repository.save(scan);
 
         // =========================================
-        // CALL FASTAPI
+        // CALL FASTAPI & UPDATE DB
         // =========================================
+        try {
+            String fastApiUrl =
+                    "http://127.0.0.1:8000/predict-usg";
 
-        String fastApiUrl =
-                "http://127.0.0.1:8000/predict-usg";
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
-        HttpHeaders headers = new HttpHeaders();
+            MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+            body.add("file", new FileSystemResource(filePath));
 
-        headers.setContentType(
-                MediaType.MULTIPART_FORM_DATA
-        );
+            HttpEntity<MultiValueMap<String, Object>> requestEntity =
+                    new HttpEntity<>(body, headers);
 
-        MultiValueMap<String, Object> body =
-                new LinkedMultiValueMap<>();
+            ResponseEntity<Map> response =
+                    restTemplate.postForEntity(
+                            fastApiUrl,
+                            requestEntity,
+                            Map.class
+                    );
 
-        body.add(
-                "file",
-                new FileSystemResource(filePath)
-        );
+            Map<String, Object> aiResult = response.getBody();
 
-        HttpEntity<MultiValueMap<String, Object>> requestEntity =
-                new HttpEntity<>(body, headers);
+            scan.setStatus("COMPLETED");
+            scan.setPrediction(aiResult.get("prediction").toString());
+            scan.setConfidence(Double.parseDouble(aiResult.get("confidence").toString()));
 
-        ResponseEntity<Map> response =
-                restTemplate.postForEntity(
-                        fastApiUrl,
-                        requestEntity,
-                        Map.class
-                );
+            if (aiResult.containsKey("explanation") && aiResult.get("explanation") != null) {
+                scan.setReport(aiResult.get("explanation").toString());
+            }
 
-        // =========================================
-        // UPDATE DB
-        // =========================================
+            repository.save(scan);
+            return aiResult;
 
-        Map<String, Object> aiResult =
-                response.getBody();
-
-        scan.setStatus("COMPLETED");
-
-        scan.setPrediction(
-                aiResult.get("prediction").toString()
-        );
-
-        scan.setConfidence(
-                Double.parseDouble(
-                        aiResult.get("confidence").toString()
-                )
-        );
-
-        if (aiResult.containsKey("explanation") && aiResult.get("explanation") != null) {
-            scan.setReport(aiResult.get("explanation").toString());
+        } catch (Exception e) {
+            scan.setStatus("FAILED");
+            scan.setReport("AI analysis failed: " + e.getMessage());
+            repository.save(scan);
+            throw new RuntimeException("AI service error: " + e.getMessage(), e);
         }
+    }
 
-        repository.save(scan);
-
-        // return to frontend
-        return aiResult;
+    public java.util.List<Scan> getAllScans() {
+        return repository.findAll();
     }
 }

@@ -36,4 +36,9 @@ public class PredictionController {
                     .body(e.getMessage());
         }
     }
+
+    @GetMapping("/scans")
+    public ResponseEntity<?> getAllScans() {
+        return ResponseEntity.ok(service.getAllScans());
+    }
 }
