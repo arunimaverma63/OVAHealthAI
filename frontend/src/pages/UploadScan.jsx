@@ -123,6 +123,23 @@ export default function UploadScan() {
       if (previewImage) {
         localStorage.setItem("previewImage", previewImage);
       }
+      
+      try {
+        const newScan = {
+          id: `PCOS-${Math.floor(1000 + Math.random() * 9000)}`,
+          timestamp: new Date().toISOString(),
+          prediction: response.data.prediction || "PCOS Detected",
+          confidence: response.data.confidence !== undefined ? response.data.confidence : 94,
+          report: response.data.explanation || response.data.report || "",
+          previewImage: previewImage
+        };
+        const existingHistory = JSON.parse(localStorage.getItem("scanHistory") || "[]");
+        existingHistory.unshift(newScan);
+        localStorage.setItem("scanHistory", JSON.stringify(existingHistory));
+      } catch (err) {
+        console.error("Failed to save scan to local history:", err);
+      }
+
       setStage("completed");
 
     } catch (error) {

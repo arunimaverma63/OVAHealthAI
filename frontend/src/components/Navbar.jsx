@@ -10,7 +10,7 @@ export default function Navbar() {
       <div className="hidden md:flex items-center gap-8">
         <Link className="text-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md" to="/">Home</Link>
         <Link className="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-md text-label-md" to="/features">Features</Link>
-        <Link className="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-md text-label-md" to="/about">How it Works</Link>
+        <Link className="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-md text-label-md" to="/how-it-works">How it Works</Link>
         <Link className="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-md text-label-md" to="/dashboard">Insights</Link>
       </div>
       <Link to="/login" className="bg-primary text-on-primary px-6 py-2 rounded-full font-label-md text-label-md hover:scale-95 transition-transform active:scale-90 shadow-lg shadow-primary/20">

@@ -11,6 +11,8 @@ import AnalyticsDashboard from './pages/AnalyticsDashboard';
 import ContactSupport from './pages/ContactSupport';
 import ScanHistory from './pages/ScanHistory';
 import UploadScan from './pages/UploadScan';
+import Features from './pages/Features';
+import HowItWorks from './pages/HowItWorks';
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
         <Route path="/contact" element={<ContactSupport />} />
         <Route path="/history" element={<ScanHistory />} />
         <Route path="/upload" element={<UploadScan />} />
+        <Route path="/features" element={<Features />} />
+        <Route path="/how-it-works" element={<HowItWorks />} />
       </Routes>
       
       <Footer />
