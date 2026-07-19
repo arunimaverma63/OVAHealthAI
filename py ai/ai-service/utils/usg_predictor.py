@@ -1,18 +1,24 @@
-import torch
-from tensorflow.keras.models import load_model
 from utils.preprocess import preprocess_image
 import numpy as np
-from transformers import pipeline
 
-model = load_model("model/usg_model.keras")
-
-# Lazily initialized DeepSeek-R1 pipeline
+# Lazily initialized models and pipelines
+usg_model = None
 pipe = None
+
+def get_usg_model():
+    global usg_model
+    if usg_model is None:
+        print("Loading USG Keras model...")
+        from tensorflow.keras.models import load_model
+        usg_model = load_model("model/usg_model.keras")
+    return usg_model
 
 def get_explanation_pipeline():
     global pipe
     if pipe is None:
         print("Initializing DeepSeek-R1 text-generation pipeline...")
+        import torch
+        from transformers import pipeline
         device = 0 if torch.cuda.is_available() else -1
         pipe = pipeline(
             "text-generation",  
@@ -24,13 +30,14 @@ def get_explanation_pipeline():
     return pipe
 
 
+
 def predict_ultrasound(image_path):
 
     # preprocess image
     processed_image = preprocess_image(image_path)
 
     # model prediction
-    prediction = model.predict(processed_image)
+    prediction = get_usg_model().predict(processed_image)
 
     print("\n==========================")
     print("RAW MODEL OUTPUT:")

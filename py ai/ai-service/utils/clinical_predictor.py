@@ -1,5 +1,5 @@
 import pickle
-import numpy as np
+import pandas as pd
 
 # Load trained XGBoost model
 with open("notebooks/best_xgboost_model.pkl", "rb") as file:
@@ -8,16 +8,16 @@ with open("notebooks/best_xgboost_model.pkl", "rb") as file:
 
 def predict_clinical(data):
 
-    input_data = np.array([[
+    input_df = pd.DataFrame([[
         data["Age"],
         data["Weight"],
         data["BMI"],
         data["Cycle"]
-    ]])
+    ]], columns=[' Age (yrs)', 'Weight (Kg)', 'BMI', 'Cycle length(days)'])
 
-    prediction = model.predict(input_data)[0]
+    prediction = model.predict(input_df)[0]
 
-    probability = model.predict_proba(input_data)[0][1]
+    probability = float(model.predict_proba(input_df)[0][1])
 
     if prediction == 1:
         result = "PCOS Detected"
@@ -27,4 +27,4 @@ def predict_clinical(data):
     return {
         "prediction": result,
         "confidence": round(probability * 100, 2)
-    }
+    }

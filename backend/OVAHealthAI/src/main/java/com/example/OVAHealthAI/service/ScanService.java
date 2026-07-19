@@ -113,6 +113,57 @@ public class ScanService {
         }
     }
 
+    public Map<String, Object> predictClinical(Map<String, Object> params) {
+        try {
+            String fastApiUrl = "http://127.0.0.1:8000/predict-clinical";
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+            MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+            body.add("age", params.get("age"));
+            body.add("weight", params.get("weight"));
+            body.add("bmi", params.get("bmi"));
+            body.add("cycle_length", params.get("cycle_length"));
+
+            HttpEntity<MultiValueMap<String, Object>> requestEntity =
+                    new HttpEntity<>(body, headers);
+
+            ResponseEntity<Map> response =
+                    restTemplate.postForEntity(
+                            fastApiUrl,
+                            requestEntity,
+                            Map.class
+                    );
+
+            Map<String, Object> aiResult = response.getBody();
+
+            // Save clinical prediction to Database as a Scan entry (with null imagePath)
+            Scan scan = new Scan();
+            scan.setImagePath(null);
+            scan.setStatus("COMPLETED");
+            scan.setPrediction(aiResult.get("prediction").toString());
+            scan.setConfidence(Double.parseDouble(aiResult.get("confidence").toString()));
+
+            // Build a report for clinical prediction
+            String age = params.get("age") != null ? params.get("age").toString() : "N/A";
+            String weight = params.get("weight") != null ? params.get("weight").toString() : "N/A";
+            String bmi = params.get("bmi") != null ? params.get("bmi").toString() : "N/A";
+            String cycleLength = params.get("cycle_length") != null ? params.get("cycle_length").toString() : "N/A";
+            String reportText = String.format(
+                "Clinical Parameter Analysis. Patient Age: %s years. Weight: %s kg. BMI: %s. Cycle Length: %s days. Prediction result indicates %s with a confidence level of %s%%.",
+                age, weight, bmi, cycleLength, scan.getPrediction(), scan.getConfidence()
+            );
+            scan.setReport(reportText);
+
+            repository.save(scan);
+            return aiResult;
+
+        } catch (Exception e) {
+            throw new RuntimeException("AI service error: " + e.getMessage(), e);
+        }
+    }
+
     public java.util.List<Scan> getAllScans() {
         return repository.findAll();
     }

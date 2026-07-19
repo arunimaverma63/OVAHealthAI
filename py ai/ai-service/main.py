@@ -1,5 +1,6 @@
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.responses import JSONResponse
+from pydantic import BaseModel
 import shutil
 import os
 import uuid
@@ -7,6 +8,12 @@ import uuid
 #IMPORT YOUR UTIL MODULES(V.IMP)
 from utils.usg_predictor import predict_ultrasound
 from utils.clinical_predictor import predict_clinical
+
+class ClinicalData(BaseModel):
+    age: int
+    weight: float
+    bmi: float
+    cycle_length: int
 
 app = FastAPI()
 
@@ -55,20 +62,15 @@ async def predict_usg(file: UploadFile = File(...)):
 
 #CLINICAL DATA PREDICTION (XGBoost)
 @app.post("/predict-clinical")
-async def predict_clinical_api(
-    age: int = Form(...),
-    weight: float = Form(...),
-    bmi: float = Form(...),
-    cycle_length: int = Form(...)
-):
+async def predict_clinical_api(data: ClinicalData):
 
     try:
         # 1. Prepare input dictionary
         input_data = {
-            "Age": age,
-            "Weight": weight,
-            "BMI": bmi,
-            "Cycle": cycle_length
+            "Age": data.age,
+            "Weight": data.weight,
+            "BMI": data.bmi,
+            "Cycle": data.cycle_length
         }
 
         # 2. Call XGBoost predictor

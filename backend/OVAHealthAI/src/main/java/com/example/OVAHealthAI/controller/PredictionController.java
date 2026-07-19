@@ -37,6 +37,20 @@ public class PredictionController {
         }
     }
 
+    @PostMapping("/predict-clinical")
+    public ResponseEntity<?> predictClinical(
+            @RequestBody java.util.Map<String, Object> params
+    ) {
+        try {
+            return ResponseEntity.ok(
+                    service.predictClinical(params)
+            );
+        } catch (Exception e) {
+            return ResponseEntity.badRequest()
+                    .body(e.getMessage());
+        }
+    }
+
     @GetMapping("/scans")
     public ResponseEntity<?> getAllScans() {
         return ResponseEntity.ok(service.getAllScans());
