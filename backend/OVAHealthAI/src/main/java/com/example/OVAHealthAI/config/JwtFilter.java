@@ -14,6 +14,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+//jwtFilter is used mainly for requests after login,and after once the jwt token is receiev for a user
+//request contains Authorization: Bearer eyJBJDfknfifvvnh.....(jwt token and who bears it)
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 

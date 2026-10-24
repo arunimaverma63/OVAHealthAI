@@ -106,7 +106,7 @@ layers.Dense(1, activation='sigmoid')
 ])
 model.compile(
     optimizer='adam',
-    loss='binary_crossentropy',
+    loss=  tf.keras.losses.BinaryCrossentropy(label_smoothing=0.1),
     metrics=['accuracy']
 )
 

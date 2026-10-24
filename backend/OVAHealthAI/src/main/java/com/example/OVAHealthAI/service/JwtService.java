@@ -22,6 +22,7 @@ public class JwtService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
+    //used only for the login,for providing the jwt
     public String generateToken(String username){
         return Jwts.builder()
                 .subject(username)
@@ -33,7 +34,7 @@ public class JwtService {
                 )
                 .signWith(getKey())
                 .compact();
-    }
+    }//after this function gets end, it return jwt token to the frontend for the particular user
 
     public String extractUsername(String token){
         return extractClaim(

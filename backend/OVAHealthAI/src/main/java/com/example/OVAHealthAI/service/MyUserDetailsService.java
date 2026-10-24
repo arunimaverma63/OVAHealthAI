@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class MyUserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
+public class MyUserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService { //It loads the user from the database using UserRepo
 
     @Autowired
     private UserRepo userRepo;

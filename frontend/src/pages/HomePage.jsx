@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import pcosSymptomsImg from '../assets/pcos-symptoms.png';
 
 export default function HomePage() {
   return (
@@ -42,18 +43,12 @@ export default function HomePage() {
           </div>
         </div>
         <div className="relative">
-          <div className="glass-card rounded-[2.5rem] p-4 overflow-hidden shadow-2xl">
-            <img alt="Ultrasound Analysis Interface" className="rounded-[2rem] w-full" data-alt="A futuristic medical user interface displaying a 3D ultrasound scan of an ovary on a sleek glass tablet. The screen features translucent medical data overlays, glowing purple heatmaps indicating follicle detection, and clean white typography. The setting is a brightly lit, sterile clinical environment with soft, ambient purple and blue lighting casting a professional, high-tech glow across the device." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPqlP52gnf2I84fMV_2UjKIOGyHHPBAESWNqOz6X0yetnCtRfYFisiqXvOWKoT_51gmWg9nYWD6p0jOQPNh0pSZ80f1gwtLVGES2Dz_FhrMYKISsUStjenmXTuYIaD9XXsbNapJ71BB-oI4A8rhdyxb1RAQJbCgb_7SLNveS7fLd1PWuyCO4NO98ZUoJRg1V0lMZ-fYZilKOEqSe5IVFzgMDYSqnOPgvUkO9On_zqKZ4B4REMNv65flAciYh2BkreMLKq0R2vBkc4n"/>
-            <div className="absolute -bottom-8 -left-8 glass-card p-6 rounded-2xl max-w-xs space-y-4">
-              <div className="flex justify-between items-center">
-                <span className="font-label-md text-label-md">Diagnosis Confidence</span>
-                <span className="text-primary font-bold">98.4%</span>
-              </div>
-              <div className="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
-                <div className="liquid-progress h-full w-[98%]"></div>
-              </div>
-              <p className="font-label-sm text-label-sm text-on-surface-variant">Model Version: v4.2 Medical Stable</p>
-            </div>
+          <div className="glass-card rounded-[2.5rem] p-4 shadow-2xl transition-all duration-300 hover:shadow-primary/20">
+            <img 
+              alt="Common PCOS Symptoms" 
+              className="rounded-[2rem] w-full object-cover shadow-sm" 
+              src={pcosSymptomsImg}
+            />
           </div>
         </div>
       </section>

@@ -30,7 +30,6 @@ def get_explanation_pipeline():
     return pipe
 
 
-
 def predict_ultrasound(image_path):
 
     # preprocess image
@@ -46,15 +45,22 @@ def predict_ultrasound(image_path):
 
     raw_score = float(prediction[0][0])
 
-    # MODEL OUTPUT:
-    # 0 = infected
-    # 1 = noninfected
+    # Temperature Scaling (Calibrates overconfident raw predictions)
+    # T > 1 softens extreme 0.0/1.0 probabilities into realistic ranges (e.g. 75% - 95%)
+    TEMPERATURE = 2.5
+    clipped_score = np.clip(raw_score, 1e-7, 1 - 1e-7)
+    logit = np.log(clipped_score / (1.0 - clipped_score))
+    calibrated_score = 1.0 / (1.0 + np.exp(-logit / TEMPERATURE))
 
-    if raw_score < 0.5:
+    # MODEL OUTPUT:
+    # 0 = infected (PCOS)
+    # 1 = noninfected (Normal)
+
+    if calibrated_score < 0.5:
 
         result = "PCOS Detected"
 
-        confidence = (1 - raw_score) * 100
+        confidence = (1 - calibrated_score) * 100
 
         prompt = f"""
 A pelvic ultrasound scan was analyzed using AI.
@@ -71,7 +77,7 @@ Keep the explanation simple and concise.
 
         result = "Normal"
 
-        confidence = raw_score * 100
+        confidence = calibrated_score * 100
 
         prompt = f"""
 A pelvic ultrasound scan was analyzed using AI.
@@ -100,5 +106,6 @@ Keep the explanation simple and concise.
         "prediction": result,
         "confidence": round(confidence, 2),
         "raw_prediction": round(raw_score, 4),
+        "calibrated_score": round(calibrated_score, 4),
         "explanation": raw_explanation
     }
