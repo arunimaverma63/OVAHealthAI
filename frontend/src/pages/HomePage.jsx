@@ -78,8 +78,8 @@ export default function HomePage() {
       {/* Features Bento Grid */}
       <section className="py-24">
         <div className="text-center mb-16 space-y-4">
-          <h2 className="font-headline-md text-headline-md md:text-display-lg-mobile text-on-surface">Integrated AI Diagnostic Suite</h2>
-          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Advanced tools designed to augment clinical decision-making with explainable insights.</p>
+          <h2 className="font-headline-md text-headline-md md:text-display-lg-mobile text-on-surface">How Our PCOS Detection Works</h2>
+          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Polycystic Ovary Syndrome (PCOS) is a common hormonal condition that can cause irregular periods, infertility, and metabolic issues. Early detection and personalized care can manage symptoms and improve health. Our platform provides easy‑to‑understand tools that help clinicians quickly identify PCOS safely.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
           {/* AI Diagnosis */}
@@ -88,8 +88,8 @@ export default function HomePage() {
               <div className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-6">
                 <span className="material-symbols-outlined" data-icon="biotech">biotech</span>
               </div>
-              <h3 className="font-headline-sm text-headline-sm mb-4">Explainable AI Diagnosis</h3>
-              <p className="font-body-md text-body-md text-on-surface-variant">Our deep learning models go beyond binary results, providing detailed architectural analysis of follicles and stromal density to support clinical findings.</p>
+              <h3 className="font-headline-sm text-headline-sm mb-4">Personalized PCOS Assessment</h3>
+              <p className="font-body-md text-body-md text-on-surface-variant">Our system evaluates ultrasound images to detect PCOS signs and provides easy-to-understand visual explanations for clinicians.</p>
             </div>
             <div className="mt-8 overflow-hidden rounded-xl bg-surface">
               <img alt="Data Visualization" className="w-full h-48 object-cover opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOJ1lsAduO8MyvwUxDdSitF3iAMDys3Zw68eO9jxOPd7y3inJWlfUT-mJHZEtLT2wGTd7kxyLWbVHWlv9X-XpkLu-i4T62cuGpAwjahsMN6OnTIFBPdl_bFb_zzdXofncfz2ca11aGyCP7agvZfFGf9kMmDn5p6iJeRuS9hCDi3BNSG6gfv8Vxw6ZClD29iD9xww60Qqx_OU7W7FGSdOPRSP7zoRt3TBMG6FK6Xle34l872c68SsQEgToHpc3lfrk3lseVKmp_dJyJ"/>
@@ -100,16 +100,16 @@ export default function HomePage() {
             <div className="w-12 h-12 bg-secondary/10 text-secondary rounded-xl flex items-center justify-center mb-6">
               <span className="material-symbols-outlined" data-icon="monitor_heart">monitor_heart</span>
             </div>
-            <h3 className="font-headline-sm text-headline-sm mb-4">Ultrasound Analysis</h3>
-            <p className="font-body-md text-body-md text-on-surface-variant">Real-time image enhancement and follicle counting for standard transvaginal and pelvic ultrasound modalities.</p>
+            <h3 className="font-headline-sm text-headline-sm mb-4">Ultrasound Scan Review</h3>
+            <p className="font-body-md text-body-md text-on-surface-variant">We enhance image quality and automatically count follicles, helping to quickly identify PCOS markers.</p>
           </div>
           {/* GradCAM */}
           <div className="glass-card rounded-2xl p-8 hover:border-primary/30 transition-all">
             <div className="w-12 h-12 bg-tertiary/10 text-tertiary rounded-xl flex items-center justify-center mb-6">
               <span className="material-symbols-outlined" data-icon="visibility">visibility</span>
             </div>
-            <h3 className="font-headline-sm text-headline-sm mb-4">GradCAM Visuals</h3>
-            <p className="font-body-md text-body-md text-on-surface-variant">Identify exactly where the AI is looking with heatmap overlays that highlight critical morphological regions.</p>
+            <h3 className="font-headline-sm text-headline-sm mb-4">Visual Highlights</h3>
+            <p className="font-body-md text-body-md text-on-surface-variant">See exactly which areas of the scan contributed to the assessment with clear heat‑map highlights.</p>
           </div>
           {/* Patient Report */}
           <div className="md:col-span-2 glass-card rounded-2xl p-8 flex items-center gap-8 hover:border-primary/30 transition-all">
@@ -117,8 +117,8 @@ export default function HomePage() {
               <div className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-6">
                 <span className="material-symbols-outlined" data-icon="description">description</span>
               </div>
-              <h3 className="font-headline-sm text-headline-sm mb-4">Automated Reports</h3>
-              <p className="font-body-md text-body-md text-on-surface-variant">Generate comprehensive, HIPAA-compliant patient reports including analysis summaries, detected markers, and follow-up suggestions in PDF format instantly.</p>
+              <h3 className="font-headline-sm text-headline-sm mb-4">Instant Patient Reports</h3>
+              <p className="font-body-md text-body-md text-on-surface-variant">Create a complete, privacy‑protected PDF report with findings, detected PCOS signs, and next‑step recommendations in seconds.</p>
             </div>
             <div className="hidden sm:block w-1/3 bg-white/50 p-4 rounded-xl border border-outline-variant/20 shadow-inner">
               <div className="h-4 bg-surface-container rounded mb-2 w-3/4"></div>
@@ -132,8 +132,8 @@ export default function HomePage() {
             <div className="w-12 h-12 bg-secondary/10 text-secondary rounded-xl flex items-center justify-center mb-6">
               <span className="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
             </div>
-            <h3 className="font-headline-sm text-headline-sm mb-4">GenAI Recommendations</h3>
-            <p className="font-body-md text-body-md text-on-surface-variant">Personalized lifestyle and clinical pathways based on the latest endocrinology research papers and guidelines.</p>
+            <h3 className="font-headline-sm text-headline-sm mb-4">Personalized Advice</h3>
+            <p className="font-body-md text-body-md text-on-surface-variant">Get custom guidance on diet, exercise, and treatment options based on the latest research for managing PCOS.</p>
           </div>
         </div>
       </section>
