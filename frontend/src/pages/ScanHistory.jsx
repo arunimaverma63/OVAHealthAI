@@ -156,6 +156,34 @@ export default function ScanHistory() {
     );
   }
 
+  const handleDownloadReport = async (scan) => {
+  try {
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+    // Extract numeric ID from "PCOS-1234" format
+    const numericId = scan.id.replace('PCOS-', '');
+
+    const response = await axios.get(
+      `${API_URL}/api/scans/${numericId}/report`,
+      { responseType: 'blob' }  // Important! Tells axios to expect binary data
+    );
+
+    // Create a download link and click it
+    const blob = new Blob([response.data], { type: 'application/pdf' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `PCOS-Report-${numericId}.pdf`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+  } catch (err) {
+    console.error("Failed to download report:", err);
+    alert("Failed to download report. Please try again.");
+  }
+};
+
+
   return (
     <div className="bg-background text-on-surface font-body-md mesh-gradient min-h-screen flex flex-col">
       <div className="flex flex-1 max-w-container-max mx-auto w-full">
@@ -331,16 +359,18 @@ export default function ScanHistory() {
                           </span>
                           {isExpanded ? 'Close' : 'Details'}
                         </button>
-                        <Link 
-                          to="/analysis-result" 
-                          state={{ result: { prediction: scan.prediction, confidence: scan.confidence, explanation: scan.report }, previewImage: scan.previewImage }}
+                        
+                        <button
+                          onClick={() => handleDownloadReport(scan)}
+                          disabled={isProcessing || isFailed}
                           className={`flex-1 md:flex-none bg-primary-container text-on-primary-container px-5 py-2.5 rounded-xl font-label-md text-label-md transition-all flex items-center justify-center gap-2 ${
                             (isProcessing || isFailed) ? "pointer-events-none opacity-50" : ""
                           }`}
                         >
                           <span className="material-symbols-outlined text-[18px]">download</span>
                           Report
-                        </Link>
+                        </button>
+
                       </div>
                     </div>
 
