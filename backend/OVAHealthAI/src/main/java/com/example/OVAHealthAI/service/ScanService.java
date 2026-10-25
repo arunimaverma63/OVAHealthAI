@@ -28,6 +28,12 @@ public class ScanService {
     @Autowired
     private ScanRepository repository;
 
+    public Scan getScanById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Scan not found with ID: " + id));
+    }
+
+
     public Map<String, Object> uploadImage(MultipartFile file) throws IOException {
 
         // 1. validation
