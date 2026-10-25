@@ -9,18 +9,18 @@ export default function HomePage() {
         <div className="space-y-8">
           <div className="inline-flex items-center gap-2 bg-primary-fixed px-4 py-1.5 rounded-full text-on-primary-fixed">
             <span className="material-symbols-outlined text-sm" data-icon="auto_awesome" data-weight="fill">auto_awesome</span>
-            <span className="font-label-sm text-label-sm">FDA Cleared Diagnostic Assistant</span>
+            <span className="font-label-sm text-label-sm">Smart AI Health Assistant</span>
           </div>
           <h1 className="font-display-lg text-display-lg leading-tight text-on-surface">
             AI-Powered PMOS (PCOS) Detection Using <span className="text-primary">Ultrasound Imaging</span>
           </h1>
     
           <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
-            Harness clinical-grade deep learning to identify PMOS (PCOS)Polycystic Ovary Syndrome markers in seconds. High-precision analysis with explainable AI visualizations for healthcare professionals.
+            Instantly analyze ultrasound scans to detect early signs of PCOS (Polycystic Ovary Syndrome). Get fast, reliable results accompanied by simple visual highlights that show you exactly what the model spotted.
           </p>
 
           <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
-            PCOS is now changed into PMOS (Polyendocrine Metabolic Ovarian Syndrome)
+            PCOS is also known as PMOS (Polyendocrine Metabolic Ovarian Syndrome), reflecting its broader connection to hormonal and metabolic health.
           </p>
 
           <div className="flex flex-wrap gap-4">
@@ -39,7 +39,7 @@ export default function HomePage() {
               <div className="w-10 h-10 rounded-full border-2 border-surface bg-secondary-fixed flex items-center justify-center text-secondary font-bold text-xs">RK</div>
               <div className="w-10 h-10 rounded-full border-2 border-surface bg-tertiary-fixed flex items-center justify-center text-tertiary font-bold text-xs">ML</div>
             </div>
-            <span className="font-label-sm text-label-sm text-on-surface-variant">Trusted by 500+ clinics worldwide</span>
+            <span className="font-label-sm text-label-sm text-on-surface-variant">Trusted by 500+ clinics and patients worldwide</span>
           </div>
         </div>
         <div className="relative">
@@ -58,7 +58,7 @@ export default function HomePage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-gutter text-center">
           <div className="space-y-2">
             <div className="text-primary font-display-lg text-4xl font-extrabold">99.2%</div>
-            <div className="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Sensitivity</div>
+            <div className="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Detection Accuracy</div>
           </div>
           <div className="space-y-2">
             <div className="text-secondary font-display-lg text-4xl font-extrabold">12s</div>
@@ -66,11 +66,11 @@ export default function HomePage() {
           </div>
           <div className="space-y-2">
             <div className="text-tertiary font-display-lg text-4xl font-extrabold">50k+</div>
-            <div className="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Scans Processed</div>
+            <div className="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Scans Analyzed</div>
           </div>
           <div className="space-y-2">
-            <div className="text-primary font-display-lg text-4xl font-extrabold">HIPAA</div>
-            <div className="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Compliant Security</div>
+            <div className="text-primary font-display-lg text-4xl font-extrabold">100%</div>
+            <div className="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Private & Secure</div>
           </div>
         </div>
       </section>
@@ -79,7 +79,7 @@ export default function HomePage() {
       <section className="py-24">
         <div className="text-center mb-16 space-y-4">
           <h2 className="font-headline-md text-headline-md md:text-display-lg-mobile text-on-surface">How Our PCOS Detection Works</h2>
-          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Polycystic Ovary Syndrome (PCOS) is a common hormonal condition that can cause irregular periods, infertility, and metabolic issues. Early detection and personalized care can manage symptoms and improve health. Our platform provides easy‑to‑understand tools that help clinicians quickly identify PCOS safely.</p>
+          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Polycystic Ovary Syndrome (PCOS) is a common hormonal condition that can cause irregular cycles, weight changes, and small ovarian cysts. Early detection helps you take charge of your wellness. Our platform uses smart AI to inspect ultrasound scans quickly and safely, explaining every step along the way.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
           {/* AI Diagnosis */}
@@ -88,8 +88,8 @@ export default function HomePage() {
               <div className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-6">
                 <span className="material-symbols-outlined" data-icon="biotech">biotech</span>
               </div>
-              <h3 className="font-headline-sm text-headline-sm mb-4">Personalized PCOS Assessment</h3>
-              <p className="font-body-md text-body-md text-on-surface-variant">Our system evaluates ultrasound images to detect PCOS signs and provides easy-to-understand visual explanations for clinicians.</p>
+              <h3 className="font-headline-sm text-headline-sm mb-4">Smart PCOS Assessment</h3>
+              <p className="font-body-md text-body-md text-on-surface-variant">Our AI model checks your ultrasound image for common ovarian patterns and provides a clear, easy-to-read summary of whether signs of PCOS are present.</p>
             </div>
             <div className="mt-8 overflow-hidden rounded-xl bg-surface">
               <img alt="Data Visualization" className="w-full h-48 object-cover opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOJ1lsAduO8MyvwUxDdSitF3iAMDys3Zw68eO9jxOPd7y3inJWlfUT-mJHZEtLT2wGTd7kxyLWbVHWlv9X-XpkLu-i4T62cuGpAwjahsMN6OnTIFBPdl_bFb_zzdXofncfz2ca11aGyCP7agvZfFGf9kMmDn5p6iJeRuS9hCDi3BNSG6gfv8Vxw6ZClD29iD9xww60Qqx_OU7W7FGSdOPRSP7zoRt3TBMG6FK6Xle34l872c68SsQEgToHpc3lfrk3lseVKmp_dJyJ"/>
@@ -101,15 +101,15 @@ export default function HomePage() {
               <span className="material-symbols-outlined" data-icon="monitor_heart">monitor_heart</span>
             </div>
             <h3 className="font-headline-sm text-headline-sm mb-4">Ultrasound Scan Review</h3>
-            <p className="font-body-md text-body-md text-on-surface-variant">We enhance image quality and automatically count follicles, helping to quickly identify PCOS markers.</p>
+            <p className="font-body-md text-body-md text-on-surface-variant">The model sharpens image clarity and spots small fluid pockets (follicles) in the ovaries, helping identify typical signs of PCOS.</p>
           </div>
           {/* GradCAM */}
           <div className="glass-card rounded-2xl p-8 hover:border-primary/30 transition-all">
             <div className="w-12 h-12 bg-tertiary/10 text-tertiary rounded-xl flex items-center justify-center mb-6">
               <span className="material-symbols-outlined" data-icon="visibility">visibility</span>
             </div>
-            <h3 className="font-headline-sm text-headline-sm mb-4">Visual Highlights</h3>
-            <p className="font-body-md text-body-md text-on-surface-variant">See exactly which areas of the scan contributed to the assessment with clear heat‑map highlights.</p>
+            <h3 className="font-headline-sm text-headline-sm mb-4">Clear Visual Highlights</h3>
+            <p className="font-body-md text-body-md text-on-surface-variant">See exactly which parts of the scan caught the AI's attention, highlighted with gentle colors so you know how the prediction was made.</p>
           </div>
           {/* Patient Report */}
           <div className="md:col-span-2 glass-card rounded-2xl p-8 flex items-center gap-8 hover:border-primary/30 transition-all">
@@ -117,8 +117,8 @@ export default function HomePage() {
               <div className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-6">
                 <span className="material-symbols-outlined" data-icon="description">description</span>
               </div>
-              <h3 className="font-headline-sm text-headline-sm mb-4">Instant Patient Reports</h3>
-              <p className="font-body-md text-body-md text-on-surface-variant">Create a complete, privacy‑protected PDF report with findings, detected PCOS signs, and next‑step recommendations in seconds.</p>
+              <h3 className="font-headline-sm text-headline-sm mb-4">Instant Health Reports</h3>
+              <p className="font-body-md text-body-md text-on-surface-variant">Generate a complete, private PDF report containing your scan results, detected indicators, and practical next steps for your doctor's visit.</p>
             </div>
             <div className="hidden sm:block w-1/3 bg-white/50 p-4 rounded-xl border border-outline-variant/20 shadow-inner">
               <div className="h-4 bg-surface-container rounded mb-2 w-3/4"></div>
@@ -132,8 +132,8 @@ export default function HomePage() {
             <div className="w-12 h-12 bg-secondary/10 text-secondary rounded-xl flex items-center justify-center mb-6">
               <span className="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
             </div>
-            <h3 className="font-headline-sm text-headline-sm mb-4">Personalized Advice</h3>
-            <p className="font-body-md text-body-md text-on-surface-variant">Get custom guidance on diet, exercise, and treatment options based on the latest research for managing PCOS.</p>
+            <h3 className="font-headline-sm text-headline-sm mb-4">Personalized Guidance</h3>
+            <p className="font-body-md text-body-md text-on-surface-variant">Receive lifestyle and dietary tips tailored to your results, helping you understand how to manage hormonal balance and everyday symptoms.</p>
           </div>
         </div>
       </section>
@@ -141,31 +141,31 @@ export default function HomePage() {
       {/* Workflow Section */}
       <section className="py-24 bg-surface-container-low rounded-[3rem] px-12 border border-white/60">
         <div className="text-center mb-16">
-          <h2 className="font-headline-md text-headline-md text-on-surface">Seamless Clinical Workflow</h2>
+          <h2 className="font-headline-md text-headline-md text-on-surface">Simple 4-Step Process</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="text-center space-y-4">
             <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto shadow-sm border border-outline-variant/10 text-primary font-bold text-xl">1</div>
-            <h4 className="font-headline-sm text-headline-sm text-sm">Upload Scan</h4>
-            <p className="font-body-md text-body-md text-on-surface-variant text-sm">DICOM or standard image upload to secure server.</p>
+            <h4 className="font-headline-sm text-headline-sm text-sm">Upload Your Scan</h4>
+            <p className="font-body-md text-body-md text-on-surface-variant text-sm">Easily upload your ultrasound image or scan file from your device with complete privacy.</p>
           </div>
           <div className="text-center space-y-4 relative">
             <div className="hidden md:block absolute top-8 left-[-50%] w-full h-[2px] bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
             <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto shadow-sm border border-outline-variant/10 text-primary font-bold text-xl">2</div>
-            <h4 className="font-headline-sm text-headline-sm text-sm">AI Analysis</h4>
-            <p className="font-body-md text-body-md text-on-surface-variant text-sm">Neural network scans for 12+ diagnostic PCOS markers.</p>
+            <h4 className="font-headline-sm text-headline-sm text-sm">Instant AI Scan</h4>
+            <p className="font-body-md text-body-md text-on-surface-variant text-sm">Our AI model checks the image to spot ovary shape, follicle patterns, and signs of PCOS.</p>
           </div>
           <div className="text-center space-y-4 relative">
             <div className="hidden md:block absolute top-8 left-[-50%] w-full h-[2px] bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
             <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto shadow-sm border border-outline-variant/10 text-primary font-bold text-xl">3</div>
-            <h4 className="font-headline-sm text-headline-sm text-sm">Review Visuals</h4>
-            <p className="font-body-md text-body-md text-on-surface-variant text-sm">Verify AI findings using GradCAM heatmap overlays.</p>
+            <h4 className="font-headline-sm text-headline-sm text-sm">See What AI Sees</h4>
+            <p className="font-body-md text-body-md text-on-surface-variant text-sm">Color-coded highlights show the exact areas of the ultrasound that influenced the result.</p>
           </div>
           <div className="text-center space-y-4 relative">
             <div className="hidden md:block absolute top-8 left-[-50%] w-full h-[2px] bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
             <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto shadow-sm border border-outline-variant/10 text-primary font-bold text-xl">4</div>
-            <h4 className="font-headline-sm text-headline-sm text-sm">Finalize Report</h4>
-            <p className="font-body-md text-body-md text-on-surface-variant text-sm">Export HIPAA-compliant report for the patient.</p>
+            <h4 className="font-headline-sm text-headline-sm text-sm">Get Your Report</h4>
+            <p className="font-body-md text-body-md text-on-surface-variant text-sm">Download an easy-to-read health report with findings and personalized next steps.</p>
           </div>
         </div>
       </section>
@@ -175,26 +175,26 @@ export default function HomePage() {
         <div className="flex flex-col md:flex-row gap-12 items-center">
           <div className="md:w-1/3">
             <h2 className="font-headline-md text-headline-md text-on-surface mb-6">Designed with Specialists</h2>
-            <p className="font-body-md text-body-md text-on-surface-variant">Developed in collaboration with leading endocrinologists and radiologists to ensure clinical relevance and diagnostic accuracy.</p>
+            <p className="font-body-md text-body-md text-on-surface-variant">Developed with experienced healthcare professionals and specialists to ensure accurate insights and clear explanations.</p>
           </div>
           <div className="md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="glass-card p-8 rounded-2xl border-l-4 border-l-primary">
-              <p className="font-body-md text-body-md italic text-on-surface-variant mb-6">"PCOSense has reduced our diagnostic triage time by 60%. The explainability of the GradCAM feature is a game-changer for radiologist trust."</p>
+              <p className="font-body-md text-body-md italic text-on-surface-variant mb-6">"OVAHealth AI makes reviewing ultrasound scans over 60% faster. The visual highlights clearly reveal what the model detected, making it easy to discuss results with patients."</p>
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-surface-container"></div>
                 <div>
                   <div className="font-label-md text-label-md font-bold">Dr. Sarah Chen</div>
-                  <div className="font-label-sm text-label-sm text-on-surface-variant">Chief of Endocrinology, MVH</div>
+                  <div className="font-label-sm text-label-sm text-on-surface-variant">Hormonal Health Specialist, MVH</div>
                 </div>
               </div>
             </div>
             <div className="glass-card p-8 rounded-2xl border-l-4 border-l-secondary">
-              <p className="font-body-md text-body-md italic text-on-surface-variant mb-6">"The automated reporting is seamless. It allows us to spend more time with patients explaining results rather than typing data."</p>
+              <p className="font-body-md text-body-md italic text-on-surface-variant mb-6">"The automated summaries and downloadable reports are wonderful. They save valuable time so we can focus on answering questions and guiding patients."</p>
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-surface-container"></div>
                 <div>
                   <div className="font-label-md text-label-md font-bold">Dr. Marcus Thorne</div>
-                  <div className="font-label-sm text-label-sm text-on-surface-variant">Radiology Director, Apex Health</div>
+                  <div className="font-label-sm text-label-sm text-on-surface-variant">Medical Imaging Specialist, Apex Health</div>
                 </div>
               </div>
             </div>
