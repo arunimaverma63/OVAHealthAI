@@ -646,8 +646,8 @@ export default function UploadScan() {
                             </span>
                           </div>
                           <div>
-                            <p className="font-label-md font-bold">AI Prediction</p>
-                            <p className="text-sm text-on-surface-variant">CNN model analyzing ultrasound</p>
+                            <p className="font-label-md font-bold">Clinical Analysis</p>
+                            <p className="text-sm text-on-surface-variant">Evaluating ovarian structures & follicles</p>
                           </div>
                         </div>
 
