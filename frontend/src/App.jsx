@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 
 import HomePage from './pages/HomePage';
 import LoginSignup from './pages/LoginSignup';
+import WhatIsPcos from './pages/WhatIsPcos';
 import AboutPcos from './pages/AboutPcos';
 import AnalysisResult from './pages/AnalysisResult';
 import MedicalAssistant from './pages/MedicalAssistant';
@@ -26,7 +27,8 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginSignup />} />
-        <Route path="/about" element={<AboutPcos />} />
+        <Route path="/what-is-pcos" element={<WhatIsPcos />} />
+        <Route path="/about" element={<WhatIsPcos />} />
         <Route path="/analysis-result" element={<AnalysisResult />} />
         <Route path="/medical-assistant" element={<MedicalAssistant />} />
         <Route path="/dashboard" element={<AnalyticsDashboard />} />
