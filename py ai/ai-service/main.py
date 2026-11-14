@@ -24,8 +24,27 @@ app.add_middleware(
     allow_headers=["*"],
 )
 # 2. CONFIGURE GOOGLE GEMINI API KEY
-# Paste your key here or set GEMINI_API_KEY environment variable
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "YOUR_GOOGLE_GEMINI_API_KEY_HERE")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+if not GEMINI_API_KEY or GEMINI_API_KEY == "YOUR_GOOGLE_GEMINI_API_KEY_HERE":
+    env_paths = [
+        os.path.join(os.path.dirname(__file__), ".env"),
+        os.path.join(os.path.dirname(__file__), "..", "..", ".env"),
+    ]
+    for p in env_paths:
+        if os.path.exists(p):
+            try:
+                with open(p, "r", encoding="utf-8") as f:
+                    for line in f:
+                        line = line.strip()
+                        if line.startswith("GEMINI_API_KEY"):
+                            parts = line.split("=", 1)
+                            if len(parts) == 2:
+                                GEMINI_API_KEY = parts[1].strip().strip('"').strip("'")
+                                break
+                if GEMINI_API_KEY:
+                    break
+            except Exception:
+                pass
 # 3. SPECIALIZED MEDICAL SYSTEM PROMPT
 PCOS_MEDICAL_SYSTEM_INSTRUCTION = """
 You are OVAHealth AI's specialized Clinical PCOS & PMOS Assistant.
