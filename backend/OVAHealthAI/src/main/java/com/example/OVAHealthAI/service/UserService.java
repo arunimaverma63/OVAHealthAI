@@ -14,10 +14,17 @@ public class UserService {
     @Autowired
     private PasswordEncoder encoder;
 
+//    public User register(User user){
+//        user.setPassword(encoder.encode(user.getPassword()));
+//
+//        return userRepo.save(user);
+//    }
+//
     public User register(User user){
-        user.setPassword(encoder.encode(user.getPassword()));
-
-        return userRepo.save(user);
+        if (userRepo.existsByUsername(user.getUsername())) {
+            throw new RuntimeException("Username already exists. Please choose a different username.");
     }
-
+    user.setPassword(encoder.encode(user.getPassword()));
+    return userRepo.save(user);
+}
 }

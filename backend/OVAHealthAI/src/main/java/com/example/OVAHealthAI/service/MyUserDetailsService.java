@@ -18,8 +18,13 @@ public class MyUserDetailsService implements org.springframework.security.core.u
     public UserDetails loadUserByUsername(String username)
     throws UsernameNotFoundException {
 
-        User user = userRepo.findByUsername(username)
-                .orElseThrow(() ->new UsernameNotFoundException("User not found"));
+        // Change from:
+// User user = userRepo.findByUsername(username)...
+
+// To:
+        User user = userRepo.findFirstByUsernameOrderByIdenDesc(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+
 
         return org.springframework.security.core.userdetails.User
                 .builder()
