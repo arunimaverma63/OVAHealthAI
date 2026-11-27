@@ -54,6 +54,7 @@ export default function Navbar() {
           <NavLink className={mobileLinkClass} to="/how-it-works" onClick={() => setMobileMenuOpen(false)}>How it Works</NavLink>
           <NavLink className={mobileLinkClass} to="/dashboard" onClick={() => setMobileMenuOpen(false)}>Insights</NavLink>
           <NavLink className={mobileLinkClass} to="/what-is-pcos" onClick={() => setMobileMenuOpen(false)}>What is PCOS</NavLink>
+          <NavLink className={linkClass} to="/cycle-tracker">Cycle Tracker</NavLink>
           <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="bg-primary text-on-primary text-center mt-2 px-6 py-2.5 rounded-full font-label-md text-label-md">
             Login
           </Link>

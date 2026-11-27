@@ -14,6 +14,8 @@ import ScanHistory from './pages/ScanHistory';
 import UploadScan from './pages/UploadScan';
 import Features from './pages/Features';
 import HowItWorks from './pages/HowItWorks';
+import PatientProfile from './pages/PatientProfile';
+import CycleTracker from './pages/CycleTracker';
 
 function App() {
   return (
@@ -37,6 +39,7 @@ function App() {
         <Route path="/upload" element={<UploadScan />} />
         <Route path="/features" element={<Features />} />
         <Route path="/how-it-works" element={<HowItWorks />} />
+        <Route path="/profile" element={<PatientProfile />} />
       </Routes>
       
       <Footer />

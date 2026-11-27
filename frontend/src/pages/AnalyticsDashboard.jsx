@@ -204,6 +204,11 @@ export default function AnalyticsDashboard() {
             <span className="material-symbols-outlined">person</span>
             <span className="font-label-md text-label-md">Patient Profile</span>
           </Link>
+          <Link to="/cycle-tracker" className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 rounded-xl mx-2 my-1 transition-all">
+            <span className="material-symbols-outlined">calendar_month</span>
+            <span className="font-label-md text-label-md">Cycle & Symptoms</span>
+          </Link>
+
         </nav>
         <div className="px-4 mt-auto">
           <div className="flex items-center gap-3 p-3 bg-surface-container rounded-2xl">
