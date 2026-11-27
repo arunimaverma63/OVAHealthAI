@@ -200,14 +200,6 @@ export default function AnalyticsDashboard() {
             <span className="material-symbols-outlined">psychology</span>
             <span className="font-label-md text-label-md">AI Insights</span>
           </Link>
-          <Link className="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/50 rounded-xl mx-2 my-1 transition-colors" to="#">
-            <span className="material-symbols-outlined">person</span>
-            <span className="font-label-md text-label-md">Patient Profile</span>
-          </Link>
-          <Link className="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/50 rounded-xl mx-2 my-1 transition-colors" to="#">
-            <span className="material-symbols-outlined">settings</span>
-            <span className="font-label-md text-label-md">Settings</span>
-          </Link>
         </nav>
         <div className="px-4 mt-auto">
           <div className="flex items-center gap-3 p-3 bg-surface-container rounded-2xl">
