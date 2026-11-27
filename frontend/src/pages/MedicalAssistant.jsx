@@ -103,6 +103,10 @@ export default function MedicalAssistant() {
             <span className="material-symbols-outlined">upload_file</span>
             <span className="font-label-md text-label-md">Upload Scan</span>
           </Link>
+          <Link to="/profile" className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 rounded-xl mx-2 my-1 transition-all">
+            <span className="material-symbols-outlined">person</span>
+            <span className="font-label-md text-label-md">Patient Profile</span>
+          </Link>
         </nav>
       </aside>
 
